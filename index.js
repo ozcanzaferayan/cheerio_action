@@ -12,7 +12,7 @@ require("dotenv").config();
     const stockState = $(".add-to-cart__btn>span").text();
     const isAvailable = stockState !== "YAKINDA STOKTA";
     if (isAvailable) {
-      sendMail(url);
+      sendEmail(url);
     }
   });
 })();
