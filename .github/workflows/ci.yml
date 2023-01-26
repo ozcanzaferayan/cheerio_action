@@ -1,6 +1,7 @@
-name: Daily
+name: Half-Hourly
 
 on:
+  workflow_dispatch:
   push:
   schedule:
     # Execute CI at every 30th minute
