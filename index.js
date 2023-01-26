@@ -12,12 +12,12 @@ require("dotenv").config();
     const stockState = $(".add-to-cart__btn>span").text();
     const isAvailable = stockState !== "YAKINDA STOKTA";
     if (isAvailable) {
-      sendMail();
+      sendMail(url);
     }
   });
 })();
 
-function sendEmail() {
+function sendEmail(urlOfItem) {
   var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -30,7 +30,7 @@ function sendEmail() {
     from: process.env.MAIL_ADDRESS_FROM,
     to: process.env.MAIL_ADDRESS_TO,
     subject: process.env.MAIL_SUBJECT,
-    text: process.env.MAIL_TEXT,
+    text: urlOfItem + " " + process.env.MAIL_TEXT,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
