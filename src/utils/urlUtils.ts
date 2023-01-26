@@ -4,13 +4,14 @@ const axios = require("axios");
 const { hash } = require("./hashUtil");
 const { isSentToday } = require("./dateUtil");
 const { sendEmailAsync } = require("./mailSender");
-const {
+import {
   URLS,
   TARGET_DOM_ELEMENT_QUERY,
   TARGET_DOM_ELEMENT_CURRENT_TEXT,
-} = require("./constants");
+} from "./constants";
+import { UrlSent } from "../model/UrlSent";
 
-exports.iterateUrls = async function (urlMap) {
+export const iterateUrls = async function (urlMap: Record<string, UrlSent>) {
   await Promise.all(
     URLS.map(async (url) => {
       const { data } = await axios.get(url);
@@ -18,13 +19,13 @@ exports.iterateUrls = async function (urlMap) {
       const stockStatus = $(TARGET_DOM_ELEMENT_QUERY).text();
       const isAvailable = stockStatus !== TARGET_DOM_ELEMENT_CURRENT_TEXT;
       let isSent = isSentToday(urlMap, url);
-      if (!isSent && isAvailable) {
+      if (!isSent && !isAvailable) {
         isSent = await sendEmailAsync(url);
       }
-      urlMap.set(hash(url), {
+      urlMap[hash(url)] = {
         isSent: isSent,
         date: new Date().toISOString(),
-      });
+      };
     })
   );
 };

@@ -1,7 +1,8 @@
-var nodemailer = require("nodemailer");
-const { FROM, PASSWORD, TO, SUBJECT, TEXT } = require("./constants");
+import nodemailer from "nodemailer";
+import { UrlSent } from "../model/UrlSent";
+import { FROM, PASSWORD, TO, SUBJECT, TEXT } from "./constants";
 
-exports.sendEmailAsync = async function (urlOfItem) {
+export const sendEmailAsync = async function (urlOfItem: string) {
   return new Promise((resolve, reject) => {
     var transporter = nodemailer.createTransport({
       service: "gmail",
@@ -18,7 +19,7 @@ exports.sendEmailAsync = async function (urlOfItem) {
       text: urlOfItem + " " + TEXT,
     };
 
-    transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, function (error) {
       if (error) {
         reject(error);
       } else {
