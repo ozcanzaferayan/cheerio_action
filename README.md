@@ -10,8 +10,9 @@
     4. Back to Security in "Signing in to Google" section choose App passwords
     5. From the Select app drop down choose Other (Custom name) and put a name e.g. nodemailer
     6. A modal dialog will appear with the password. Get that password and use it in your code.
-3. Go to your forked repo's "Settings" tab and navigate to "Secrets" from left sidebar.
-4. Create secrets according to your information:
+3. Set Workflow permisson as read/write. Repo > Settings > Actioms (Sidebar) > General > Workflow permissions > Read and write permissions
+4. Go to your forked repo's "Settings" tab and navigate to "Secrets" from left sidebar.
+5. Create secrets according to your information:
 
 ```bash
 MAIL_ADDRESS_FROM=abc@gmail.com
