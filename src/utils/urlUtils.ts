@@ -19,7 +19,7 @@ export const iterateUrls = async function (urlMap: Record<string, UrlSent>) {
       const stockStatus = $(TARGET_DOM_ELEMENT_QUERY).text();
       const isAvailable = stockStatus !== TARGET_DOM_ELEMENT_CURRENT_TEXT;
       let isSent = isSentToday(urlMap, url);
-      if (!isSent && !isAvailable) {
+      if (!isSent && isAvailable) {
         isSent = await sendEmailAsync(url);
       }
       urlMap[hash(url)] = {
