@@ -19,6 +19,8 @@ MAIL_ADDRESS_TO=to@gmail.com
 MAIL_PASSWORD_FROM_PASSWORD=asldkjfqelas
 MAIL_SUBJECT=Subject
 MAIL_TEXT=Text
+TARGET_DOM_ELEMENT_CURRENT_TEXT=YAKINDA STOKTA
+TARGET_DOM_ELEMENT_QUERY=.add-to-cart__btn>span
 URL_ITEMS=https://example.com;https://wikipedia.com
 ```
 
