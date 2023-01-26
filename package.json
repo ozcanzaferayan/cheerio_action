@@ -1,0 +1,17 @@
+{
+  "name": "depremler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "",
+  "author": "Özcan Zafer AYAN <ozcanzaferayan@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.1",
+    "nodemailer": "^6.9.0"
+  },
+  "scripts": {
+    "start": "node ./index.js"
+  }
+}
