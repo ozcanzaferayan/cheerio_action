@@ -2,34 +2,42 @@ name: Half-Hourly
 
 on:
   workflow_dispatch:
-  push:
   schedule:
     # Execute CI at every 30th minute
-    - cron: '*/30 * * * *'
+    - cron: "*/30 * * * *"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Get urls
+    if: "!contains(toJSON(github.event.commits.*.message), '[skip-ci]')"
     strategy:
       matrix:
         node-version: [14.x]
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Yarn ops
-      shell: bash
-      run: |
-        yarn
-        yarn start
-      env:
-        CI: true
-        MAIL_ADDRESS_FROM: ${{ secrets.MAIL_ADDRESS_FROM }}
-        MAIL_ADDRESS_TO: ${{ secrets.MAIL_ADDRESS_TO }}
-        MAIL_PASSWORD_FROM_PASSWORD: ${{ secrets.MAIL_PASSWORD_FROM_PASSWORD }}
-        MAIL_SUBJECT: ${{ secrets.MAIL_SUBJECT }}
-        MAIL_TEXT: ${{ secrets.MAIL_TEXT }}
-        URL_ITEMS: ${{ secrets.URL_ITEMS }}
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Yarn ops
+        shell: bash
+        run: |
+          yarn
+          yarn start
+        env:
+          CI: true
+          MAIL_ADDRESS_FROM: ${{ secrets.MAIL_ADDRESS_FROM }}
+          MAIL_ADDRESS_TO: ${{ secrets.MAIL_ADDRESS_TO }}
+          MAIL_PASSWORD_FROM_PASSWORD: ${{ secrets.MAIL_PASSWORD_FROM_PASSWORD }}
+          MAIL_SUBJECT: ${{ secrets.MAIL_SUBJECT }}
+          MAIL_TEXT: ${{ secrets.MAIL_TEXT }}
+          URL_ITEMS: ${{ secrets.URL_ITEMS }}
+      - name: Git ops
+        shell: bash
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Add [skip-ci]"
+          git push
