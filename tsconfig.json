@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true /* Enables emit */
+  },
+  "exclude": ["node_modules"]
+}
