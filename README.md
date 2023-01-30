@@ -1,4 +1,4 @@
-# Cheerio Action
+# Website crawler Github Action
 
 ## Usage
 
